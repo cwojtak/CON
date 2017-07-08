@@ -1,0 +1,7 @@
+﻿  CON_LANG.cpp
+c:\users\connor\desktop\currentprojects\con_lang\con_lang\connamespace.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(64): warning C4302: 'type cast': truncation from 'const char *' to 'char'
+c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(68): warning C4302: 'type cast': truncation from 'const char *' to 'char'
+c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(84): warning C4302: 'type cast': truncation from 'const char *' to 'char'
+  CON_LANG.vcxproj -> C:\Users\Connor\Desktop\CurrentProjects\CON_LANG\Debug\CON_LANG.exe
+  CON_LANG.vcxproj -> C:\Users\Connor\Desktop\CurrentProjects\CON_LANG\Debug\CON_LANG.pdb (Partial PDB)
