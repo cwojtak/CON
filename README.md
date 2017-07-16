@@ -6,4 +6,4 @@ Since CON is currently in development, Visual Studio project files, test files, 
 
 ### **_CON is also not currently usable at this point!_**
 
-See [connorwojtak.com](https://connorwojtak.com/source_code/con_lang.php") for details.
+See [connorwojtak.com](https://connorwojtak.com/source_code/con_lang.php) for details.
