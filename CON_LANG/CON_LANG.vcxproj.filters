@@ -35,5 +35,8 @@
     <ClCompile Include="CON_LANG.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="INTERPRETER.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -9,17 +9,17 @@
 #include <io.h>
 #include <exception>
 
-int main(int argv, char **argc)
-{
-	if (argc[1] == NULL) { return 1; }
-	con::compile(argc[1]);
-	std::cin.ignore();
-	return 0;
-}
+//int main(int argv, char **argc)
+//{
+	//if (argc[1] == NULL) { return 1; }
+	//con::compile(argc[1]);
+	//std::cin.ignore();
+	//return 0;
+//}
 
 namespace con {
 	
-	void compile(string filename) {
+	void read(string filename) {
 		ifstream file;
 		file.open(filename);
 		if (!file || !filename.find(".cdl")) {
@@ -43,15 +43,15 @@ namespace con {
 			bool continueLoop = true;
 			while(continueLoop == true){
 				//try {
-					//var_construct(line, line_num);
+					//var_constructb(line, line_num);
 				//}
 				//catch (exception) {
 					//throwError("VariableSyntaxError", "Unable to parse line " + std::to_string(line_num)  + ".");
 				//}
 				
 				try {
-					if(list[startNext] += list[startNext + 1] += list[startNext + 2] += list[startNext + 3] == "0x0A"){
-						startNext = print_construct(line, startNext + 5);
+					if(list[startNext] += list[startNext + 1] += list[startNext + 2] += list[startNext + 3] == (char)"0x0A"){
+						startNext = print_constructb(line, startNext + 5);
 						continue;
 					}
 				}
@@ -64,16 +64,16 @@ namespace con {
 		}
 	}
 
-	void var_construct(string line, int line_num) { //Checks to see if there are any variable definitions.
+	void var_constructb(string line, int line_num) { //Checks to see if there are any variable definitions.
 	}
 
-	int print_construct(char list[], int start){
-		continueLoop = false;
+	int print_constructb(string list, int start){
+		bool continueLoop = false;
 		string echo = "";
 		bool continueLoop2 = true;
 		int j = start;
 		while(continueLoop2 == true){
-			if(list[j] == "'"){
+			if(list[j] == (char)"'"){
 				continueLoop2 = false;
 				break;
 			}

@@ -1,7 +1,13 @@
 ﻿  CON_LANG.cpp
 c:\users\connor\desktop\currentprojects\con_lang\con_lang\connamespace.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(64): warning C4302: 'type cast': truncation from 'const char *' to 'char'
-c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(68): warning C4302: 'type cast': truncation from 'const char *' to 'char'
-c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(84): warning C4302: 'type cast': truncation from 'const char *' to 'char'
+c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(56): warning C4302: 'type cast': truncation from 'const char *' to 'char'
+c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(185): warning C4302: 'type cast': truncation from 'const char *' to 'char'
+c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(187): warning C4302: 'type cast': truncation from 'const char *' to 'char'
+c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(191): warning C4302: 'type cast': truncation from 'const char *' to 'char'
+c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(248): warning C4302: 'type cast': truncation from 'const char *' to 'char'
+c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(268): warning C4302: 'type cast': truncation from 'const char *' to 'char'
+c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(274): warning C4302: 'type cast': truncation from 'const char *' to 'char'
+c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(286): warning C4305: 'argument': truncation from 'int' to 'const char'
+c:\users\connor\desktop\currentprojects\con_lang\con_lang\con_lang.cpp(286): warning C4309: 'argument': truncation of constant value
   CON_LANG.vcxproj -> C:\Users\Connor\Desktop\CurrentProjects\CON_LANG\Debug\CON_LANG.exe
   CON_LANG.vcxproj -> C:\Users\Connor\Desktop\CurrentProjects\CON_LANG\Debug\CON_LANG.pdb (Partial PDB)
