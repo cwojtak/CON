@@ -33,10 +33,6 @@ namespace con {
 	vector<string> variable_names = {};
 	vector<int> variable_ids = {};
 
-	//Identifiers
-	string VAR = "var";
-	string PRINT = "print";
-
 	//Called by main to compile.
 	void compile(string filename) {
 		ifstream file;
@@ -104,8 +100,8 @@ namespace con {
 		temp[2] = list[startWhere + 2];
 		temp[3] = NULL;
 
-		if(temp == VAR) { //Checks for the keyword "var".
-			if(list[startWhere + 3] == ' ' && list.find(" equals")) {
+		if (temp == "var") { //Checks for the keyword "var".
+			if (list[startWhere + 3] == ' ' && list.find(" equals")) {
 				startWhere = startWhere + 4;
 				bool continueLoop = true;
 				int i = 0;
@@ -120,10 +116,10 @@ namespace con {
 					temp2[5] = list[k + 5];
 					temp2[6] = list[k + 6];
 					temp2[7] = NULL;
-						
+
 					string checker = " equals";
 					if (temp2 != checker) { //Makes sure that the equals is not part of the varname
-						if(list[k] == ' '){
+						if (list[k] == ' ') {
 							throwError("VariableSyntaxException", "A variable at line " + to_string(line_num) + " contains a space!");
 						}
 						try {
@@ -138,6 +134,7 @@ namespace con {
 						continueLoop = false;
 						varname.push_back(NULL);
 						startWhere = k + 7;
+						break;
 					}
 					k = k + 1;
 				}
@@ -145,93 +142,109 @@ namespace con {
 			else {
 				throwError("VariableSyntaxException", "Failed to parse line " + to_string(line_num) + '.');
 			}
-		}
 
-		//Assigns values.
+			//Assigns values.
 
-		if(list[startWhere] != ' ') {
-			throwError("VariableSyntaxException", "Failed to parse line " + to_string(line_num) + '.');
-		}
+			if (list[startWhere] != ' ') {
+				throwError("VariableSyntaxException", "Failed to parse line " + to_string(line_num) + '.');
+			}
 
-		string markType = "";
-		vector<char> value = {};
-		startWhere = startWhere + 1;
+			string markType = "";
+			vector<char> value = {};
+			startWhere = startWhere + 1;
+			
+			char temp3[8];
 
-		char temp3[8];
-		temp3[0] = startWhere;
-		temp3[1] = startWhere + 1;
-		temp3[2] = startWhere + 2;
-		temp3[3] = startWhere + 3;
-		temp3[4] = startWhere + 4;
-		temp3[5] = NULL;
+			if (list[startWhere] == ' ' || list[startWhere] == ';' || list[startWhere] == NULL) {
+				throwError("VariableSyntaxException", "Failed to parse line " + to_string(line_num) + '.');
+			}
+			if (list[startWhere + 1] != ';' && list[startWhere + 2] != ';' && list[startWhere + 3] != ';'){ //Used for when the value IS a boolean.
+				temp3[0] = list[startWhere];
+				temp3[1] = list[startWhere + 1];
+				temp3[2] = list[startWhere + 2];
+				temp3[3] = list[startWhere + 3];
 
-		if(list[startWhere] == '"'){
-			markType = "string";
-			if (list.find(startWhere + 1, '"')) {
+				if (list[startWhere + 4] == ';') {
+					temp3[4] = NULL;
+				}
+				else if (list[startWhere + 4] == ' ') {
+					throwError("VariableSyntaxException", "Failed to parse line " + to_string(line_num) + '.');
+				}
+				else {
+					temp3[4] = list[startWhere + 4];
+					temp3[5] = NULL;
+				}
+			}
+
+			char temp4[2];
+			temp4[0] = '\'';
+			temp4[1] = NULL;
+			if (list[startWhere] == '"') {
+				markType = "string";
+				if (list.find(startWhere + 1, '"')) {
+					bool continueLoopA = true;
+					int z = startWhere + 1;
+					while (continueLoopA == true) {
+						if (list[z] == '"') {
+							continueLoopA = false;
+							value.push_back(NULL);
+							break;
+						}
+						value.push_back(list[z]);
+						z = z + 1;
+					}
+				}
+			}
+			else if (list[startWhere] == '\'') {
+				markType = "string";
+				if (list.find(startWhere + 1, '\'')) {
+					bool continueLoopA = true;
+					int z = startWhere + 1;
+					while (continueLoopA == true) {
+						if (list[z] == '\'') {
+							continueLoopA = false;
+							value.push_back(NULL);
+							break;
+						}
+						value.push_back(list[z]);
+						z = z + 1;
+					}
+				}
+			}
+
+			else if (isdigit(list[startWhere])) {
+				markType = "int";
 				bool continueLoopA = true;
-				int z = startWhere + 1;
+				int z = startWhere;
 				while (continueLoopA == true) {
-					if (list[z] == '"') {
+					if (list[z] == ';') {
 						continueLoopA = false;
 						value.push_back(NULL);
 						break;
 					}
-					value.push_back(list[z]);
+					value.push_back(list[z] + NULL);
 					z = z + 1;
 				}
 			}
-		}
-
-		else if (list[startWhere] == (char)"'") {
-			markType = "string";
-			if (list.find(startWhere + 1, (char)"'")) {
+			else if (strcmp(temp3, "true") || strcmp(temp3, "false")) {
+				markType = "bool";
 				bool continueLoopA = true;
-				int z = startWhere + 1;
-				while (continueLoopA == true) {
-					if (list[z] == (char)"'") {
-						continueLoopA = false;
-						value.push_back(NULL);
-						break;
-					}
-					value.push_back(list[z]);
-					z = z + 1;
+				int z = 0;
+				for (z; z <= 8; z++) {
+					value.push_back(temp3[z]);
 				}
+				value.push_back(NULL);
 			}
-		}
 
-		else if (isdigit(list[startWhere + 1])) {
-			markType = "int";
-			bool continueLoopA = true;
-			int z = startWhere;
-			while (continueLoopA == true) {
-				if (list[z] == ';') {
-					continueLoopA = false;
-					value.push_back(NULL);
-					break;
-				}
-				value.push_back(list[z] + NULL);
-				z = z + 1;
+			else {
+				throwError("VariableSyntaxException", "No value assigned to a variable at line " + to_string(line_num) + '.');
 			}
-		}
 
-		else if (temp3 == "true " || temp3 == "false") {
-			markType = "bool";
-			bool continueLoopA = true;
-			int z = 0;
-			for (z; z <= 8; z++) {
-				value.push_back(temp3[z]);
-			}
-			value.push_back(NULL);
+			//TODO: Create memory allocations from variable names.
+			WRITE_LIST.append(varname.data()); //TODO: CREATE WRITER!
+			WRITE_LIST.append(" ");
+			WRITE_LIST.append(value.data());
 		}
-
-		else {
-			throwError("VariableSyntaxException", "No value assigned to a variable at line " + to_string(line_num) + '.');
-		}
-
-		//TODO: Create memory allocations from variable names.
-		WRITE_LIST.append(varname.data()); //TODO: CREATE WRITER!
-		WRITE_LIST.append(" ");
-		WRITE_LIST.append(value.data());
 	}
 
 
@@ -240,7 +253,6 @@ namespace con {
 
 	//PRINT CONSTRUCT
 	void print_construct(string list, int line_num){
-		bool shouldPrint = false;
 		bool shouldDelete = true;
 		int j = 0;
 		int startWhere = 0;
@@ -254,49 +266,52 @@ namespace con {
 				startWhere = j;
 			}
 		}
-		
+
 		startWhere = startWhere - 1;
-		string temp = "";
-		string temp2 = "";
-		temp += list[startWhere];
-		temp += list[startWhere + 1];
-		temp += list[startWhere + 2];
-		temp += list[startWhere + 3];
-		temp += list[startWhere + 4];
-		
-		if(temp == PRINT) { //Checks for the keyword "var".
-			if(list[startWhere + 5] += list[startWhere + 6] == (char)"('" && list.find("')")) {
+		char temp[5];
+		vector<char> temp2 = {};
+		temp[0] = list[startWhere];
+		temp[1] = list[startWhere + 1];
+		temp[2] = list[startWhere + 2];
+		temp[3] = list[startWhere + 3];
+		temp[4] = list[startWhere + 4];
+
+		char temp99[2];
+		temp99[0] = list[startWhere + 5];
+		temp99[1] = list[startWhere + 6];
+
+		if (strcmp(temp, "print")) { //Checks for the keyword "print".
+			if (strcmp(temp99, "('") && list.find("')")) {
 				startWhere = startWhere + 7;
 				bool continueLoop = true;
 				int k = 0;
 				while (continueLoop == true) {
+					cout << "A";
 					if (k >= startWhere) {
-						if(list[k] == (char)"'"){
-							if(list[k + 1] != ')'){
+						if (list[k] == '\'') {
+							if (list[k + 1] != ')') {
 								throwError("PrintSyntaxException", "Failed to parse line " + to_string(line_num) + '.');
 							}
 							continueLoop = false;
-							shouldPrint = true;
 						}
-						temp2 += list[k];
-						k = k + 1;
+						temp2.push_back(list[k]);
 					}
+					k = k + 1;
 				}
 			} //TODO: Add else-if to print variable values.
-			else if(list[startWhere + 5] += list[startWhere + 6] == '("' && list.find('")')){
+			else if (strcmp(temp99, "(\"") && list.find('")')) {
 				startWhere = startWhere + 7;
 				bool continueLoop = true;
 				int k = 0;
 				while (continueLoop == true) {
 					if (k >= startWhere) {
-						if(list[k] == '"'){
-							if(list[k + 1] != ')'){
+						if (list[k] == '"') {
+							if (list[k + 1] != ')') {
 								throwError("PrintSyntaxException", "Failed to parse line " + to_string(line_num) + '.');
 							}
 							continueLoop = false;
-							shouldPrint = true;
 						}
-						temp2 += list[k];
+						temp2.push_back(list[k]);
 						k = k + 1;
 					}
 				}
@@ -304,9 +319,7 @@ namespace con {
 			else {
 				throwError("PrintSyntaxException", "Failed to parse line " + to_string(line_num) + '.');
 			}
-		}
-		if (shouldPrint == true) {
-			WRITE_LIST += (string)"0A'" += temp2 += (string)"'0B";
+			WRITE_LIST += (string)"0A'" += (string)temp2.data() += (string)"'0B";
 		}
 	}
 	

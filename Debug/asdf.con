@@ -1,1 +1,2 @@
-var asdf equals 256;
+var asdf equals false;
+print('hello world!');
